@@ -1,0 +1,27 @@
+version: "3"
+services:
+  nginx:
+    container_name: project-nginx
+    build:
+      context: .
+      dockerfile: deploy/nginx/Dockerfile
+    volumes:
+      - ./deploy/nginx/templates:/etc/nginx/templates
+      - ./deploy/nginx/media/html:/usr/share/nginx/html
+      - ./deploy/nginx/media/doc:/usr/share/nginx/doc
+      - ./deploy/nginx/media/img:/usr/share/nginx/img
+      - ./deploy/nginx/media/video:/usr/share/nginx/video
+    ports:
+      - "8081:80"
+    environment:
+      - NGINX_CUSTOM_SERVER_NAME=project-2021.local
+      - NGINX_SYMFONY_SERVER_NAME=project-symfony.local
+      - NGINX_TEST_SERVER_NAME=project-test.local
+
+  php:
+    container_name: project-php
+    build:
+      context: .
+      dockerfile: deploy/php-fpm/Dockerfile
+    volumes:
+      - ./public:/data/public
