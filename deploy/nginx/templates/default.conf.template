@@ -10,8 +10,8 @@ server {
     error_log  /var/log/nginx/host.error.log;
 
     location / {
-        # expires 1d;
-        # add_header Cache-Control "public";
+        expires 1d;
+        add_header Cache-Control "public";
         root   /usr/share/nginx/html;
         index  index.html index.htm;
     }
