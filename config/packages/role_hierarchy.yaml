@@ -1,0 +1,15 @@
+security:
+  role_hierarchy:
+    !php/const App\Core\Goods\Enum\Role::OWNER:
+      - !php/const App\Core\Goods\Enum\Role::VIP
+      - !php/const App\Core\Goods\Enum\Permission::GOODS_CREATE
+      - !php/const App\Core\Goods\Enum\Permission::GOODS_DELETE
+      - !php/const App\Core\Goods\Enum\Permission::GOODS_UPDATE
+
+    !php/const App\Core\Goods\Enum\Role::VIP:
+      - !php/const App\Core\Goods\Enum\Role::USER
+      - !php/const App\Core\Goods\Enum\Permission::GOODS_VALIDATION
+      - !php/const App\Core\Goods\Enum\Permission::GOODS_INDEX
+
+    !php/const App\Core\Goods\Enum\Role::USER:
+      - !php/const App\Core\Goods\Enum\Permission::GOODS_SHOW
