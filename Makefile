@@ -62,3 +62,11 @@ run-dev:
 	winpty docker run --name test --interactive --tty composer $(RUN_ARGS)
 	winpty docker cp test:app $(LOCALHOST_PROJECT_DIR)
 	winpty docker rm test
+
+get-token: USER?= admin
+get-token: PASS?= qwerty
+get-token:
+	curl -X POST -H "Content-Type: application/json" http://project-symfony.local:8081/api/v1/test/login_check -d '{"username":"$(USER)","password":"$(PASS)"}'
+
+login-token:
+	curl -X GET http://project-symfony.local:8081/api/v1/test/users -H "Authorization: BEARER $(TOKEN)"

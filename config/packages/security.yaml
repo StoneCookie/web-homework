@@ -19,7 +19,7 @@ security:
             memory:
                 users:
 #                    admin: { password: '$argon2id$v=19$m=65536,t=4,p=1$rrXAYqNjHOtMfV0zGEfeHQ$MA/iDvmTwyLvtrg/BoXSry/6BfuMiexC69ZATanEQr4', roles: [ 'ROLE_ADMIN' ] }
-                    admin: { password: '$argon2id$v=19$m=65536,t=4,p=1$aDNQVWxCUGdQZ3I3T0dRTg$o+ZNmresR0MDKwahuAY8Hyk7vzJeRSJdBhDfx3wQMzI', roles: [ 'IS_AUTHENTICATED_ANONYMOUSLY' ] }
+                    admin: { password: '$argon2id$v=19$m=65536,t=4,p=1$aDNQVWxCUGdQZ3I3T0dRTg$o+ZNmresR0MDKwahuAY8Hyk7vzJeRSJdBhDfx3wQMzI', roles: [ 'IS_AUTHENTICATED_FULLY' ] }
 
 
     firewalls:
@@ -31,7 +31,6 @@ security:
             pattern: ^/api/v1/test/login
             stateless: true
             provider: backend_users
-#            anonymous: true
             json_login:
                 check_path: /api/v1/test/login_check
                 success_handler: lexik_jwt_authentication.handler.authentication_success
@@ -51,4 +50,4 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/api/v1/test/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
