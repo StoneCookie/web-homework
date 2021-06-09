@@ -10,7 +10,9 @@ use App\Api\Goods\Dto\GoodsResponseDto;
 use App\Api\Goods\Dto\GoodsUpdateRequestDto;
 use App\Api\Goods\Dto\UserResponseDto;
 use App\Api\Goods\Dto\ValidationExampleRequestDto;
+use App\Api\Goods\Factory\ResponseFactory;
 use App\Core\Common\Dto\ValidationFailedResponse;
+use App\Core\Common\Factory\HTTPResponseFactory;
 use App\Core\Goods\Document\Goods;
 use App\Core\Goods\Document\User;
 use App\Core\Goods\Enum\Permission;
@@ -18,6 +20,7 @@ use App\Core\Goods\Enum\Role;
 use App\Core\Goods\Enum\RoleHumanReadable;
 use App\Core\Goods\Repository\UserRepository;
 use App\Core\Goods\Repository\GoodsRepository;
+use App\Core\Goods\Service\GoodsService;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\Annotations\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -41,11 +44,16 @@ class GoodsController extends AbstractController
      *
      * @Rest\View()
      *
-     * @param Goods|null $goods
+     * @param Goods|null      $goods
+     * @param ResponseFactory $responseFactory
      *
      * @return GoodsResponseDto
      */
-    public function show(Goods $goods = null, UserRepository $userRepository)
+    public function show(
+        Goods           $goods = null,
+        UserRepository  $userRepository,
+        ResponseFactory $responseFactory
+    )
     {
         if (!$goods) {
             throw $this->createNotFoundException('Item not found');
@@ -53,7 +61,7 @@ class GoodsController extends AbstractController
 
         $user = $userRepository->findOneBy(['status' => $goods->getCheck()]);
 
-        return $this->createGoodsResponse($goods, $user);
+        return $responseFactory->createGoodsResponse($goods, $user);
     }
 
     /**
@@ -61,11 +69,16 @@ class GoodsController extends AbstractController
      * @IsGranted(Permission::GOODS_INDEX)
      * @Rest\View()
      *
+     * @param Request         $request
+     * @param GoodsRepository $goodsRepository
+     * @param ResponseFactory $responseFactory
+     *
      * @return GoodsListResponseDto|ValidationFailedResponse
      */
     public function index(
-        Request $request,
-        GoodsRepository $goodsRepository
+        Request         $request,
+        GoodsRepository $goodsRepository,
+        ResponseFactory $responseFactory
     ): GoodsListResponseDto {
         $page     = (int)$request->get('page');
         $quantity = (int)$request->get('slice');
@@ -74,8 +87,8 @@ class GoodsController extends AbstractController
 
         return new GoodsListResponseDto(
             ... array_map(
-                    function (Goods $goods) {
-                        return $this->createGoodsResponse($goods, null);
+                    function (Goods $goods) use ($responseFactory) {
+                        return $responseFactory->createGoodsResponse($goods, null);
                     },
                     $items
                 )
@@ -91,49 +104,23 @@ class GoodsController extends AbstractController
      *
      * @param GoodsCreateRequestDto            $requestDto
      * @param ConstraintViolationListInterface $validationErrors
-     * @param GoodsRepository                  $goodsRepository
-     *
-     * @return GoodsResponseDto|ValidationFailedResponse|Response
+     * @param GoodsService                     $service
+     * @param ResponseFactory                  $responseFactory
+     * @param HTTPResponseFactory              $HTTPResponseFactory
+     * @return GoodsResponseDto|Response
      */
     public function create(
         GoodsCreateRequestDto            $requestDto,
         ConstraintViolationListInterface $validationErrors,
-        GoodsRepository                  $goodsRepository
+        GoodsService                     $service,
+        ResponseFactory                  $responseFactory,
+        HTTPResponseFactory              $HTTPResponseFactory
     ) {
         if ($validationErrors->count() > 0) {
-            return new ValidationFailedResponse($validationErrors);
+            return $HTTPResponseFactory->createValidationFailedResponse($validationErrors);
         }
 
-        if ($goods = $goodsRepository->findOneBy(['title' => $requestDto->title])) {
-            return new Response('Item already exists', Response::HTTP_BAD_REQUEST);
-        }
-
-        $goods = new Goods(
-            $requestDto->title,
-            $requestDto->description,
-            $requestDto->img,
-            $requestDto->cost,
-            $requestDto->dateOfPlacement,
-            $requestDto->category,
-            $requestDto->subcategory,
-            $requestDto->city,
-            $requestDto->userData,
-            $requestDto->check,
-        );
-        $goods->setTitle($requestDto->title);
-        $goods->setDescription($requestDto->description);
-        $goods->setImg($requestDto->img);
-        $goods->setCost($requestDto->cost);
-        $goods->setDateOfPlacement($requestDto->dateOfPlacement);
-        $goods->setCategory($requestDto->category);
-        $goods->setSubcategory($requestDto->subcategory);
-        $goods->setCity($requestDto->city);
-        $goods->setUserData($requestDto->userData);
-        $goods->setCheck($requestDto->check);
-
-        $goodsRepository->save($goods);
-
-        return $this->creategoodsResponse($goods, null);
+        return $responseFactory->createGoodsResponse($service->createGoods($requestDto));
     }
 
     /**
@@ -144,9 +131,11 @@ class GoodsController extends AbstractController
      *
      * @Rest\View()
      *
+     * @param Goods|null                       $goods
      * @param GoodsUpdateRequestDto            $requestDto
      * @param ConstraintViolationListInterface $validationErrors
      * @param GoodsRepository                  $goodsRepository
+     * @param ResponseFactory                  $responseFactory
      *
      * @return GoodsResponseDto|ValidationFailedResponse|Response
      */
@@ -154,7 +143,8 @@ class GoodsController extends AbstractController
         Goods $goods = null,
         GoodsUpdateRequestDto            $requestDto,
         ConstraintViolationListInterface $validationErrors,
-        GoodsRepository                  $goodsRepository
+        GoodsRepository                  $goodsRepository,
+        ResponseFactory                  $responseFactory
     ) {
         if (!$goods) {
             throw $this->createNotFoundException('Item not found');
@@ -176,7 +166,7 @@ class GoodsController extends AbstractController
         $goods->setCheck($requestDto->check);
         $goodsRepository->save($goods);
 
-        return $this->createGoodsResponse($goods, null);
+        return $responseFactory->createGoodsResponse($goods, null);
     }
 
     /**
@@ -220,49 +210,5 @@ class GoodsController extends AbstractController
         }
 
         return $requestDto;
-    }
-
-    /**
-     * @param Goods $goods
-     *
-     * @param User|null $user
-     *
-     * @return GoodsResponseDto
-     */
-    private function createGoodsResponse(Goods $goods, ?User $user): GoodsResponseDto
-    {
-        $dto = new GoodsResponseDto();
-
-        $dto->id              = $goods->getId();
-        $dto->title           = $goods->getTitle();
-        $dto->description     = $goods->getDescription();
-        $dto->img             = $goods->getImg();
-        $dto->cost            = $goods->getCost();
-        $dto->dateOfPlacement = $goods->getDateOfPlacement();
-        $dto->category        = $goods->getCategory();
-        $dto->subcategory     = $goods->getSubcategory();
-        $dto->city            = $goods->getCity();
-        $dto->userData        = $goods->getUserData();
-        $dto->check           = $goods->getCheck();
-
-        if($user){
-            $userResponseDto              = new UserResponseDto();
-            $userResponseDto->id          = $user->getId();
-            $userResponseDto->firstName   = $user->getFirstName();
-            $userResponseDto->lastName    = $user->getLastName();
-            $userResponseDto->age         = $user->getAge();
-            $userResponseDto->phone       = $user->getPhone();
-            $userResponseDto->email       = $user->getEmail();
-            $userResponseDto->dateOfBirth = $user->getDateOfBirth();
-            $userResponseDto->regDate     = $user->getRegDate();
-            $userResponseDto->cityUser    = $user->getCityUser();
-            $userResponseDto->rating      = $user->getRating();
-            $userResponseDto->status      = $user->getStatus();
-            $userResponseDto->roles       = $user->getRoles();
-
-            $dto->user = $userResponseDto;
-        }
-
-        return $dto;
     }
 }
