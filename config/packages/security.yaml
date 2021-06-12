@@ -1,25 +1,15 @@
 security:
     enable_authenticator_manager: true
     encoders:
-        # this internal class is used by Symfony to represent in-memory users
         Symfony\Component\Security\Core\User\User: 'auto'
-        App\Security\User:
-            algorithm: auto
-
-
-    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
-#    providers:
-        # used to reload user from session & other features (e.g. switch_user)
-#        app_user_provider:
-#            id: App\Security\UserProvider
+#        Symfony\Component\Security\Core\User\User: 'plaintext'
 
     providers:
-        # used to reload user from session & other features (e.g. switch_user)
         backend_users:
             memory:
                 users:
-#                    admin: { password: '$argon2id$v=19$m=65536,t=4,p=1$rrXAYqNjHOtMfV0zGEfeHQ$MA/iDvmTwyLvtrg/BoXSry/6BfuMiexC69ZATanEQr4', roles: [ 'ROLE_ADMIN' ] }
-                    admin: { password: '$argon2id$v=19$m=65536,t=4,p=1$aDNQVWxCUGdQZ3I3T0dRTg$o+ZNmresR0MDKwahuAY8Hyk7vzJeRSJdBhDfx3wQMzI', roles: [ 'IS_AUTHENTICATED_FULLY' ] }
+                    user: { password: '$argon2id$v=19$m=65536,t=4,p=1$347NyHku9D1AdeSc9m5fZw$F4J/mrhozHfxFEoBjBTWn6awIVizRReo0EPvJT2Sf2g', roles: [ 'ROLE_USER' ] }
+                    admin: { password: '$argon2id$v=19$m=65536,t=4,p=1$QawqbUu28hv4/xkzy5LuFA$gzo72wtiCva9yfKZLPhu4PnKL+2dayKCcS1vYqrcDOU', roles: [ 'ROLE_ADMIN' ] }
 
 
     firewalls:
@@ -44,10 +34,11 @@ security:
                 authenticators:
                     - lexik_jwt_authentication.jwt_token_authenticator
 
-        main:
+        basic:
+            pattern: ^/api/v1/basic
+            http_basic:
+                realm: Access denied
 
-    # Easy way to control access for large sections of your site
-    # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/api/v1/test/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/v1/test/users, roles: ROLE_USER }
+        - { path: ^/api/v1/test, roles: ROLE_ADMIN }

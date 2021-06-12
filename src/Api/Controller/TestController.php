@@ -17,7 +17,7 @@ class TestController
     /**
      * @Route(path="/", methods={"GET"})
      */
-    public function index(Request $request, AuthService $authService)
+    public function index(Request $request, AuthService $authService): Response
     {
         $authMetaData = $request->headers->get('Authorization', '');
 
@@ -48,7 +48,7 @@ class TestController
     /**
      * @Route(path="/users", methods={"GET"})
      */
-    public function users()
+    public function users(): Response
     {
         $token = $_SERVER['HTTP_AUTHORIZATION'];
         $tokenParts = explode(".", str_replace("BEARER ", "", $token));
