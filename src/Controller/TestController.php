@@ -37,7 +37,7 @@ class TestController
     public function users()
     {
         return new Response(
-            content: json_encode(
+            json_encode(
                 [
                     new class ('Innokentiy', 21) {
                         public $name;
@@ -61,8 +61,8 @@ class TestController
                     }
                 ]
             ),
-            status: Response::HTTP_OK,
-            headers: [
+            Response::HTTP_OK,
+            [
                 'Content-type'=> 'application/json'
             ]
         );

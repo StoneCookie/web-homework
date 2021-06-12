@@ -44,5 +44,9 @@ ifeq (run-dev, $(firstword $(MAKECMDGOALS)))
 endif
 
 run-dev:
-	winpty docker run --name test -v /$(LOCALHOST_PROJECT_DIR):/app --interactive --tty composer $(RUN_ARGS)
-	winpty docker rm test
+	winpty docker run \
+	--rm \
+	--name test \
+	-v /$(LOCALHOST_PROJECT_DIR):/app \
+	--interactive \
+	--tty composer require $(RUN_ARGS)
