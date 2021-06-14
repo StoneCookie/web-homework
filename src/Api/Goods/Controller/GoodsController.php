@@ -134,16 +134,16 @@ class GoodsController extends AbstractController
      * @param Goods|null                       $goods
      * @param GoodsUpdateRequestDto            $requestDto
      * @param ConstraintViolationListInterface $validationErrors
-     * @param GoodsRepository                  $goodsRepository
+     * @param GoodsService                     $service
      * @param ResponseFactory                  $responseFactory
      *
      * @return GoodsResponseDto|ValidationFailedResponse|Response
      */
     public function update(
-        Goods $goods = null,
+        Goods                            $goods = null,
         GoodsUpdateRequestDto            $requestDto,
         ConstraintViolationListInterface $validationErrors,
-        GoodsRepository                  $goodsRepository,
+        GoodsService                     $service,
         ResponseFactory                  $responseFactory
     ) {
         if (!$goods) {
@@ -154,19 +154,7 @@ class GoodsController extends AbstractController
             return new ValidationFailedResponse($validationErrors);
         }
 
-        $goods->setTitle($requestDto->title);
-        $goods->setDescription($requestDto->description);
-        $goods->setImg($requestDto->img);
-        $goods->setCost($requestDto->cost);
-        $goods->setDateOfPlacement($requestDto->dateOfPlacement);
-        $goods->setCategory($requestDto->category);
-        $goods->setSubcategory($requestDto->subcategory);
-        $goods->setCity($requestDto->city);
-        $goods->setUserData($requestDto->userData);
-        $goods->setCheck($requestDto->check);
-        $goodsRepository->save($goods);
-
-        return $responseFactory->createGoodsResponse($goods, null);
+        return $responseFactory->createGoodsResponse($service->updateGoods($goods, $requestDto));
     }
 
     /**

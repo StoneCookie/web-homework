@@ -22,7 +22,7 @@ class GoodsFactory
         string $check
     ): Goods
     {
-        $goods = new Goods(
+        return new Goods(
             $title,
             $description,
             $img,
@@ -34,6 +34,33 @@ class GoodsFactory
             $userData,
             $check
         );
-        return $goods;
+    }
+
+    public function update
+    (
+        string $title,
+        string $description,
+        array  $img,
+        int    $cost,
+        string $dateOfPlacement,
+        string $category,
+        string $subcategory,
+        string $city,
+        array  $userData,
+        string $check
+    ): Goods
+    {
+        return new Goods(
+            $title,
+            $description,
+            $img,
+            $cost,
+            $dateOfPlacement,
+            $category,
+            $subcategory,
+            $city,
+            $userData,
+            $check
+        );
     }
 }

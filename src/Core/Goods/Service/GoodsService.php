@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Core\Goods\Service;
 
 use App\Api\Goods\Dto\GoodsCreateRequestDto;
+use App\Api\Goods\Dto\GoodsUpdateRequestDto;
 use App\Core\Goods\Document\Goods;
 use App\Core\Goods\Factory\GoodsFactory;
 use App\Core\Goods\Repository\GoodsRepository;
@@ -68,6 +69,28 @@ class GoodsService
         $goods = $this->goodsRepository->save($goods);
 
         $this->logger->info('Item created successfully', [
+            'id' => $goods->getId()
+        ]);
+
+        return $goods;
+    }
+
+    public function updateGoods(Goods $goods = null, GoodsUpdateRequestDto $requestDto): Goods
+    {
+        $goods->setTitle($requestDto->title);
+        $goods->setDescription($requestDto->description);
+        $goods->setImg($requestDto->img);
+        $goods->setCost($requestDto->cost);
+        $goods->setDateOfPlacement($requestDto->dateOfPlacement);
+        $goods->setCategory($requestDto->category);
+        $goods->setSubcategory($requestDto->subcategory);
+        $goods->setCity($requestDto->city);
+        $goods->setUserData($requestDto->userData);
+        $goods->setCheck($requestDto->check);
+
+        $goods = $this->goodsRepository->save($goods);
+
+        $this->logger->info('Item updated successfully', [
             'id' => $goods->getId()
         ]);
 

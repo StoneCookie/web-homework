@@ -1,6 +1,6 @@
 {
-	"name": "web/home_work9",
-	"description": "Developing API in order to learn",
+  "name": "web/home_work9",
+  "description": "Developing API in order to learn",
   "type": "project",
   "license": "proprietary",
   "minimum-stability": "dev",
@@ -32,7 +32,7 @@
     "twig/twig": "^2.12|^3.0"
   },
   "require-dev": {
-      "roave/security-advisories": "dev-latest"
+    "roave/security-advisories": "dev-latest"
   },
   "config": {
     "optimize-autoloader": true,

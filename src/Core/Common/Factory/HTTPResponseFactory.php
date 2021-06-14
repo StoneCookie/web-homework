@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-
 namespace App\Core\Common\Factory;
-
 
 use App\Core\Common\Dto\ValidationFailedResponse;
 use Symfony\Component\HttpFoundation\Response;
