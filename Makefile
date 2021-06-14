@@ -31,8 +31,14 @@ kill-dev: ## Kill current containers for dev
 
 .PHONY: kill-dev
 
-build-dev: ## Save current containers for dev
+build-dev: ## Build current containers for dev
 	docker-compose -f $(COMPOSE_FILE) build
+
+.PHONY: build-dev
+
+save-dev:## Save dev files
+	docker export ${PROJECT_NAME}-php | gzip > php.gz &
+	docker export ${PROJECT_NAME}-nginx | gzip > nginx.gz
 
 .PHONY: save-dev
 
@@ -51,10 +57,12 @@ run-dev:
 	--interactive \
 	--tty composer require $(RUN_ARGS)
 
-get-token: USER?= admin
-get-token: PASS?= qwerty
+.PHONY: run-dev
+
+get-token: USER?= user
+get-token: PASS?= qwerty1
 get-token:
 	curl -X POST -H "Content-Type: application/json" http://project-symfony.local:8081/api/v1/test/login_check -d '{"username":"$(USER)","password":"$(PASS)"}'
 
 login-token:
-	curl -X GET http://project-symfony.local:8081/api/v1/test/$(PATH) -H "Authorization: BEARER $(TOKEN)"
+	curl -X GET http://project-symfony.local:8081/api/v1/test/$(SECT) -H "Authorization: BEARER $(TOKEN)"
