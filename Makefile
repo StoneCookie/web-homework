@@ -31,8 +31,14 @@ kill-dev: ## Kill current containers for dev
 
 .PHONY: kill-dev
 
-build-dev: ## Save current containers for dev
+build-dev: ## Build current containers for dev
 	docker-compose -f $(COMPOSE_FILE) build
+
+.PHONY: build-dev
+
+save-dev:## Save dev files
+	docker export ${PROJECT_NAME}-php | gzip > php.gz &
+	docker export ${PROJECT_NAME}-nginx | gzip > nginx.gz
 
 .PHONY: save-dev
 
@@ -50,3 +56,5 @@ run-dev:
 	-v /$(LOCALHOST_PROJECT_DIR):/app \
 	--interactive \
 	--tty composer require $(RUN_ARGS)
+
+.PHONY: run-dev
