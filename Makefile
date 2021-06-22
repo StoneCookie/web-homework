@@ -55,7 +55,7 @@ run-dev:
 	--name test \
 	-v /$(LOCALHOST_PROJECT_DIR):/app \
 	--interactive \
-	--tty composer require $(RUN_ARGS)
+	--tty composer $(RUN_ARGS)
 
 .PHONY: run-dev
 
