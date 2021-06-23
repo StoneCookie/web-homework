@@ -15,12 +15,12 @@ class GoodsCreateRequestDto
     /**
      * @Assert\Length(max=50)
      */
-    public ?string $title;
+    public string $title;
 
     /**
      * @Assert\Length(max=1000)
      */
-    public ?string $description;
+    public string $description;
 
     public ?array $img = [];
 
@@ -31,29 +31,30 @@ class GoodsCreateRequestDto
 
     /**
      * @Assert\Length(max=10)
+     * @Assert\Date()
      */
-    public ?string $dateOfPlacement;
+    public string $dateOfPlacement;
 
     /**
      * @Assert\Length(max=30)
      */
-    public ?string $category;
+    public string $category;
 
     /**
      * @Assert\Length(max=30)
      */
-    public ?string $subcategory;
+    public string $subcategory;
 
     /**
      * @Assert\Length(max=20)
      */
-    public ?string $city;
+    public string $city;
 
     public ?array $userData;
 
     /**
      * @Assert\Length(max=15)
      */
-    public ?string $check;
+    public string $check;
 
 }

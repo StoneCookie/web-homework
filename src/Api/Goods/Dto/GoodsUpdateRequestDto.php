@@ -27,6 +27,7 @@ class GoodsUpdateRequestDto
 
     /**
      * @Assert\Length(max=10)
+     * @Assert\Date()
      */
     public ?string $dateOfPlacement = null;
 

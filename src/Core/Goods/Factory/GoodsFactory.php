@@ -35,32 +35,4 @@ class GoodsFactory
             $check
         );
     }
-
-    public function update
-    (
-        string $title,
-        string $description,
-        array  $img,
-        int    $cost,
-        string $dateOfPlacement,
-        string $category,
-        string $subcategory,
-        string $city,
-        array  $userData,
-        string $check
-    ): Goods
-    {
-        return new Goods(
-            $title,
-            $description,
-            $img,
-            $cost,
-            $dateOfPlacement,
-            $category,
-            $subcategory,
-            $city,
-            $userData,
-            $check
-        );
-    }
 }

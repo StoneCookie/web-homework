@@ -72,27 +72,19 @@ class GoodsController extends AbstractController
      * @param Request         $request
      * @param GoodsRepository $goodsRepository
      * @param ResponseFactory $responseFactory
+     * @param GoodsService    $service
      *
      * @return GoodsListResponseDto|ValidationFailedResponse
      */
     public function index(
         Request         $request,
         GoodsRepository $goodsRepository,
+        GoodsService    $service,
         ResponseFactory $responseFactory
     ): GoodsListResponseDto {
-        $page     = (int)$request->get('page');
-        $quantity = (int)$request->get('slice');
 
-        $items    = $goodsRepository->findBy([], [], $quantity, $quantity * ($page - 1));
+        return $service->indexGoods($request, $goodsRepository, $responseFactory);
 
-        return new GoodsListResponseDto(
-            ... array_map(
-                    function (Goods $goods) use ($responseFactory) {
-                        return $responseFactory->createGoodsResponse($goods, null);
-                    },
-                    $items
-                )
-        );
     }
 
     /**

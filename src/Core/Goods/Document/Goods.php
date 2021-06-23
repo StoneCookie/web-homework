@@ -23,12 +23,12 @@ class Goods extends AbstractDocument
     /**
      * @MongoDB\Field(type="string")
      */
-    protected ?string $title;
+    protected string $title;
 
     /**
      * @MongoDB\Field(type="string")
      */
-    protected ?string $description;
+    protected string $description;
 
     /**
      * @var string[]
@@ -45,22 +45,22 @@ class Goods extends AbstractDocument
     /**
      * @MongoDB\Field(type="string")
      */
-    protected ?string $dateOfPlacement;
+    protected string $dateOfPlacement;
 
     /**
      * @MongoDB\Field(type="string")
      */
-    protected ?string $category;
+    protected string $category;
 
     /**
      * @MongoDB\Field(type="string")
      */
-    protected ?string $subcategory;
+    protected string $subcategory;
 
     /**
      * @MongoDB\Field(type="string")
      */
-    protected ?string $city;
+    protected string $city;
 
     /**
      * @var string[]
@@ -72,7 +72,7 @@ class Goods extends AbstractDocument
     /**
      * @MongoDB\Field(type="string")
      */
-    protected ?string $check;
+    protected string $check;
 
     public function __construct(
         string $title,
@@ -112,25 +112,25 @@ class Goods extends AbstractDocument
         }
     }
 
-    public function getTitle(): ?string
+    public function getTitle(): string
     {
         return $this->title;
     }
 
 
-    public function setTitle(?string $title): void
+    public function setTitle(string $title): void
     {
         $this->title = $title;
     }
 
 
-    public function getDescription(): ?string
+    public function getDescription(): string
     {
         return $this->description;
     }
 
 
-    public function setDescription(?string $description): void
+    public function setDescription(string $description): void
     {
         $this->description = $description;
     }
@@ -164,34 +164,34 @@ class Goods extends AbstractDocument
     }
 
 
-    public function getDateOfPlacement(): ?string
+    public function getDateOfPlacement(): string
     {
         return $this->dateOfPlacement;
     }
 
 
-    public function setDateOfPlacement(?string $dateOfPlacement): void
+    public function setDateOfPlacement(string $dateOfPlacement): void
     {
         $this->dateOfPlacement = $dateOfPlacement;
     }
 
 
-    public function getCategory(): ?string
+    public function getCategory(): string
     {
         return $this->category;
     }
 
-    public function setCategory(?string $category): void
+    public function setCategory(string $category): void
     {
         $this->category = $category;
     }
 
-    public function getSubCategory(): ?string
+    public function getSubCategory(): string
     {
         return $this->subcategory;
     }
 
-    public function setSubcategory(?string $subcategory): void
+    public function setSubcategory(string $subcategory): void
     {
         $this->subcategory = $subcategory;
     }
@@ -212,23 +212,23 @@ class Goods extends AbstractDocument
         $this->userData = $userData;
     }
 
-    public function getCheck(): ?string
+    public function getCheck(): string
     {
         return $this->check;
     }
 
-    public function setCheck(?string $check): void
+    public function setCheck(string $check): void
     {
         $this->check = $check;
     }
 
-    public function getCity(): ?string
+    public function getCity(): string
     {
         return $this->city;
     }
 
 
-    public function setCity(?string $city): void
+    public function setCity(string $city): void
     {
         $this->city = $city;
     }
