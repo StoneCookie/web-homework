@@ -14,30 +14,38 @@ INNER JOIN: возвращает набор записей, который уд�
 
 ## Примеры
 У нас есть две таблицы:
+
 TableA
-![image1](/img/TableA.png)
+
+![TableA](/img/TableA.png)
 
 TableB
-скрин
+
+![TableB](/img/TableB.png)
 
 ### Демонстрация работы RIGHT JOIN
 `SELECT * FROM TableA RIGHT JOIN TableB ON TableA.id = TableB.id;`
+
 результат:
-скрин
+
+![RIGHT_JOIN](/img/RIGHT.png)
 
 ### Демонстрация работы LEFT JOIN
 `SELECT * FROM TableA LEFT JOIN TableB ON TableA.id = TableB.id;`
 результат:
-скрин
+
+![LEFT_JOIN](/img/LEFT.png)
 
 ### Демонстрация работы CROSS JOIN
 `SELECT * FROM TableA CROSS JOIN TableB ON TableA.id = TableB.id;`
 результат:
-скрин
+
+![CROSS_JOIN](/img/CROSS.png)
 
 ### Демонстрация работы INNER JOIN
 `SELECT * FROM TableA INNER JOIN TableB ON TableA.id = TableB.id;`
 результат:
-скрин
+
+![INNER_JOIN](/img/INNER.png)
 
 Как можно заметить из примеров CROSS и INNER JOIN могут заменить друг друга, то есть в случае MySQL они синтаксически эквивалентны.
