@@ -43,14 +43,18 @@ SELECT * FROM TableA RIGHT JOIN TableB ON TableA.id = TableB.id;
 ![RIGHT_JOIN](/img/RIGHT.png)
 
 ### Демонстрация работы LEFT JOIN
-`SELECT * FROM TableA LEFT JOIN TableB ON TableA.id = TableB.id;`
+```sql
+SELECT * FROM TableA LEFT JOIN TableB ON TableA.id = TableB.id;
+```
 
 ##### Результат:
 
 ![LEFT_JOIN](/img/LEFT.png)
 
 ### Демонстрация работы CROSS JOIN
-`SELECT * FROM TableA CROSS JOIN TableB;`
+```sql
+SELECT * FROM TableA CROSS JOIN TableB;
+```
 
 ##### Результат:
 
@@ -67,7 +71,9 @@ SELECT * FROM TableA RIGHT JOIN TableB ON TableA.id = TableB.id;
 ![CROSS_JOIN](/img/CROSS.png)
 
 ### Демонстрация работы INNER JOIN
-`SELECT * FROM TableA INNER JOIN TableB;`
+```sql
+SELECT * FROM TableA INNER JOIN TableB;
+```
 
 ##### Результат:
 
