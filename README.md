@@ -15,28 +15,28 @@ INNER JOIN: возвращает набор записей, который уд�
 ## Примеры
 У нас есть две таблицы:
 TableA
-скрин
+[image1]: //img/TableA.png
 
 TableB
 скрин
 
 ### Демонстрация работы RIGHT JOIN
-<SELECT * FROM TableA RIGHT JOIN TableB ON TableA.id = TableB.id;>
+`SELECT * FROM TableA RIGHT JOIN TableB ON TableA.id = TableB.id;`
 результат:
 скрин
 
 ### Демонстрация работы LEFT JOIN
-<SELECT * FROM TableA LEFT JOIN TableB ON TableA.id = TableB.id;>
+`SELECT * FROM TableA LEFT JOIN TableB ON TableA.id = TableB.id;`
 результат:
 скрин
 
 ### Демонстрация работы CROSS JOIN
-<SELECT * FROM TableA CROSS JOIN TableB ON TableA.id = TableB.id;>
+`SELECT * FROM TableA CROSS JOIN TableB ON TableA.id = TableB.id;`
 результат:
 скрин
 
 ### Демонстрация работы INNER JOIN
-<SELECT * FROM TableA INNER JOIN TableB ON TableA.id = TableB.id;>
+`SELECT * FROM TableA INNER JOIN TableB ON TableA.id = TableB.id;`
 результат:
 скрин
 
