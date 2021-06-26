@@ -34,7 +34,9 @@ TableB
 ![TableB](/img/TableB.png)
 
 ### Демонстрация работы RIGHT JOIN
-`SELECT * FROM TableA RIGHT JOIN TableB ON TableA.id = TableB.id;`
+```sql
+SELECT * FROM TableA RIGHT JOIN TableB ON TableA.id = TableB.id;
+```
 
 ##### Результат:
 
