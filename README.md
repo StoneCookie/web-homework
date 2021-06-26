@@ -36,21 +36,21 @@ TableB
 ### Демонстрация работы RIGHT JOIN
 `SELECT * FROM TableA RIGHT JOIN TableB ON TableA.id = TableB.id;`
 
-результат:
+##### Результат:
 
 ![RIGHT_JOIN](/img/RIGHT.png)
 
 ### Демонстрация работы LEFT JOIN
 `SELECT * FROM TableA LEFT JOIN TableB ON TableA.id = TableB.id;`
 
-результат:
+##### Результат:
 
 ![LEFT_JOIN](/img/LEFT.png)
 
 ### Демонстрация работы CROSS JOIN
-`SELECT * FROM TableA CROSS JOIN TableB ON TableA.id = TableB.id;`
+`SELECT * FROM TableA CROSS JOIN TableB;`
 
-результат:
+##### Результат:
 
 Пример с `ON`
 
@@ -65,9 +65,9 @@ TableB
 ![CROSS_JOIN](/img/CROSS.png)
 
 ### Демонстрация работы INNER JOIN
-`SELECT * FROM TableA INNER JOIN TableB ON TableA.id = TableB.id;`
+`SELECT * FROM TableA INNER JOIN TableB;`
 
-результат:
+##### Результат:
 
 Пример с `ON`
 
