@@ -32,19 +32,42 @@ TableB
 
 ### Демонстрация работы LEFT JOIN
 `SELECT * FROM TableA LEFT JOIN TableB ON TableA.id = TableB.id;`
+
 результат:
 
 ![LEFT_JOIN](/img/LEFT.png)
 
 ### Демонстрация работы CROSS JOIN
 `SELECT * FROM TableA CROSS JOIN TableB ON TableA.id = TableB.id;`
+
 результат:
+
+Пример с `ON`
+
+![CROSS_JOIN_ON](/img/CROSS_ON.png)
+
+Пример с `WHERE`
+
+![CROSS_JOIN_WHERE](/img/CROSS_WHERE.png)
+
+Пример без условий
 
 ![CROSS_JOIN](/img/CROSS.png)
 
 ### Демонстрация работы INNER JOIN
 `SELECT * FROM TableA INNER JOIN TableB ON TableA.id = TableB.id;`
+
 результат:
+
+Пример с `ON`
+
+![INNER_JOIN_ON](/img/INNER_ON.png)
+
+Пример с `WHERE`
+
+![INNER_JOIN_WHERE](/img/INNER_WHERE.png)
+
+Пример без условий
 
 ![INNER_JOIN](/img/INNER.png)
 
