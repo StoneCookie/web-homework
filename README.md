@@ -82,3 +82,9 @@ TableB
 ![INNER_JOIN](/img/INNER.png)
 
 Как можно заметить из примеров CROSS и INNER JOIN могут заменить друг друга, то есть в случае MySQL они синтаксически эквивалентны.
+
+## Использованные источники
+- [Краткое руководство по Маркдауну](https://paulradzkov.com/2014/markdown_cheatsheet);
+- [CROSS JOIN против INNER JOIN в SQL](https://qastack.ru/programming/17759687/cross-join-vs-inner-join-in-sql);
+- [В чем разница между JOIN](https://coderoad.ru/5706437/%D0%92-%D1%87%D0%B5%D0%BC-%D1%80%D0%B0%D0%B7%D0%BD%D0%B8%D1%86%D0%B0-%D0%BC%D0%B5%D0%B6%D0%B4%D1%83-%D0%B2%D0%BD%D1%83%D1%82%D1%80%D0%B5%D0%BD%D0%BD%D0%B8%D0%BC-JOIN-%D0%BB%D0%B5%D0%B2%D1%8B%D0%BC-JOIN-%D0%BF%D1%80%D0%B0%D0%B2%D1%8B%D0%BC-JOIN-%D0%B8-%D0%BF%D0%BE%D0%BB%D0%BD%D1%8B%D0%BC-JOIN);
+- [A Visual Explanation of SQL Joins](https://blog.codinghorror.com/a-visual-explanation-of-sql-joins).
